@@ -1,11 +1,9 @@
-// Test routes
 import express, { Router, Request, Response, NextFunction } from 'express';
 import * as testModel from '../models/testModel';
 import { CreateTestRequest } from '../types/index';
 
 const router: Router = express.Router();
 
-// Get all tests
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const tests = await testModel.getTests();
@@ -15,7 +13,6 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Get test by ID
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const test = await testModel.getTestById(req.params.id);
@@ -28,7 +25,6 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Get tests by category
 router.get('/category/:categoryId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const tests = await testModel.getTestsByCategory(parseInt(req.params.categoryId));
@@ -38,7 +34,6 @@ router.get('/category/:categoryId', async (req: Request, res: Response, next: Ne
   }
 });
 
-// Create test
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { categoryId, name, normalMin, normalMax, unit } = req.body as CreateTestRequest;
@@ -62,7 +57,6 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Update test
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { categoryId, name, normalMin, normalMax, unit } = req.body as Partial<CreateTestRequest>;
@@ -85,8 +79,5 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 });
-
-// Delete test
-// Delete endpoint removed - tests are now read-only via API
 
 export default router;

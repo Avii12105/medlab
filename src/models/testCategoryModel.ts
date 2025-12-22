@@ -1,4 +1,3 @@
-// Test Category model using Supabase
 import supabase from '../config/supabase';
 import { TestCategory, CreateTestCategoryRequest } from '../types/index';
 

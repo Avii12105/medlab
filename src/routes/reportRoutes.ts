@@ -1,4 +1,3 @@
-// Report routes
 import express, { Router, Request, Response, NextFunction } from 'express';
 import * as reportModel from '../models/reportModel';
 import * as reportItemModel from '../models/reportItemModel';
@@ -6,7 +5,6 @@ import { CreateReportRequest, CreateReportItemRequest } from '../types/index';
 
 const router: Router = express.Router();
 
-// Get all reports
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reports = await reportModel.getReports();
@@ -16,7 +14,6 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Get report by ID with items
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const report = await reportModel.getReportWithItems(req.params.id);
@@ -29,7 +26,6 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Get reports by patient ID
 router.get('/patient/:patientId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const reports = await reportModel.getReportsByPatientId(req.params.patientId);
@@ -39,7 +35,6 @@ router.get('/patient/:patientId', async (req: Request, res: Response, next: Next
   }
 });
 
-// Create report
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { patientId } = req.body as CreateReportRequest;
@@ -55,7 +50,6 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Delete report
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     await reportModel.deleteReport(req.params.id);
@@ -65,9 +59,6 @@ router.delete('/:id', async (req: Request, res: Response, next: NextFunction) =>
   }
 });
 
-// Report Items endpoints
-
-// Add report item
 router.post('/:reportId/items', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { testId, resultValue, status } = req.body as CreateReportItemRequest;
@@ -88,7 +79,6 @@ router.post('/:reportId/items', async (req: Request, res: Response, next: NextFu
   }
 });
 
-// Get report item by ID
 router.get('/items/:itemId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const item = await reportItemModel.getReportItemById(req.params.itemId);
@@ -101,7 +91,6 @@ router.get('/items/:itemId', async (req: Request, res: Response, next: NextFunct
   }
 });
 
-// Update report item
 router.put('/items/:itemId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { testId, resultValue, status } = req.body as Partial<CreateReportItemRequest>;
@@ -117,7 +106,6 @@ router.put('/items/:itemId', async (req: Request, res: Response, next: NextFunct
   }
 });
 
-// Delete report item
 router.delete('/items/:itemId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     await reportItemModel.deleteReportItem(req.params.itemId);

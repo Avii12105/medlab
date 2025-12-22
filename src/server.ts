@@ -1,4 +1,3 @@
-// Server bootstrap
 import 'dotenv/config';
 import express, { Express, Request, Response, NextFunction } from 'express';
 import healthCheckRoutes from './routes/healthCheckRoutes';
@@ -10,11 +9,9 @@ import reportRoutes from './routes/reportRoutes';
 
 const app: Express = express();
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS middleware
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -35,7 +32,7 @@ app.use('/api/test-categories', testCategoryRoutes);
 app.use('/api/tests', testRoutes);
 app.use('/api/reports', reportRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT: number = Number(process.env.PORT) || 3000;
 
 const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`✓ Server running on http://0.0.0.0:${PORT}`);

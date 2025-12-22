@@ -1,4 +1,3 @@
-// Authentication routes with JWT
 import express, { Router, Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import * as userModel from '../models/userModel';
@@ -8,7 +7,6 @@ const router: Router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'ff39606b94d7914c1d4a247951b3cad696041ff8eb026bdbe17d630d35f77c70';
 
-// Login endpoint
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password } = req.body as LoginRequest;
@@ -49,7 +47,6 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
   }
 });
 
-// Register endpoint
 router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { username, password } = req.body as LoginRequest;
@@ -66,19 +63,15 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
       return res.status(400).json({ error: 'Password must be at least 6 characters' });
     }
 
-    // Check if user already exists
     const existingUser = await userModel.findUserByUsername(username);
     if (existingUser) {
       return res.status(409).json({ error: 'Username already exists' });
     }
 
-    // Hash the password
     const passwordHash = await userModel.hashPassword(password);
 
-    // Create user
     const result = await userModel.createUser({ username, passwordHash });
 
-    // Generate JWT token
     const token = jwt.sign(
       { id: result.id, username: result.username },
       JWT_SECRET,

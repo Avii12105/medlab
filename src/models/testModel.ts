@@ -1,4 +1,3 @@
-// Test model using Supabase
 import supabase from '../config/supabase';
 import { LabTest, CreateTestRequest } from '../types/index';
 

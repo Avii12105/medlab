@@ -15,7 +15,6 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Check if user is already logged in on app load
   useEffect(() => {
     const token = localStorage.getItem('auth_token');
     const username = localStorage.getItem('username');
@@ -45,7 +44,6 @@ const App = () => {
     return <div className="min-h-screen flex items-center justify-center"><p>Loading...</p></div>;
   }
 
-  // Simple Router
   const renderContent = () => {
     switch (view) {
       case 'PATIENTS':
@@ -67,7 +65,6 @@ const App = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100 text-gray-900 font-sans">
-      {/* Backdrop for mobile sidebar */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
@@ -75,7 +72,6 @@ const App = () => {
         />
       )}
 
-      {/* Sidebar */}
       <aside className={cn(
         "w-64 bg-white border-r border-gray-200 fixed h-full z-30 transition-transform duration-300 ease-in-out",
         "md:translate-x-0",
@@ -122,9 +118,8 @@ const App = () => {
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 md:ml-64 p-6 md:p-8 overflow-y-auto">
-        {/* Mobile Header */}
+
         <div className="md:hidden flex justify-between items-center mb-6">
           <div className="flex items-center gap-3">
             <button 
@@ -133,12 +128,11 @@ const App = () => {
             >
               <Menu className="w-5 h-5" />
             </button>
-            <span className="font-bold text-lg">MedLab Pro</span>
+            <span className="font-bold text-lg">MedLab</span>
           </div>
           <button onClick={handleLogout}><LogOut className="w-5 h-5" /></button>
         </div>
 
-        {/* Dynamic Page Content */}
         {renderContent()}
       </main>
     </div>

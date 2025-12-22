@@ -1,16 +1,13 @@
-// User model using Supabase
 import supabase from '../config/supabase';
 import bcrypt from 'bcrypt';
 import { User } from '../types/index';
 
 const SALT_ROUNDS = 10;
 
-// Hash a password
 export const hashPassword = async (password: string): Promise<string> => {
   return bcrypt.hash(password, SALT_ROUNDS);
 };
 
-// Compare password with hash
 export const comparePassword = async (password: string, hash: string): Promise<boolean> => {
   return bcrypt.compare(password, hash);
 };

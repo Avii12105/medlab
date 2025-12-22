@@ -76,7 +76,7 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({ onCreateClick }) => {
               <p className="text-gray-500 text-sm">#{selectedReport.id}</p>
             </div>
             <div className="sm:text-right">
-              <p className="font-semibold text-base md:text-lg">MedLab Pro</p>
+              <p className="font-semibold text-base md:text-lg">MedLab</p>
               <p className="text-gray-500 text-xs md:text-sm">Laboratory Management System</p>
             </div>
           </div>

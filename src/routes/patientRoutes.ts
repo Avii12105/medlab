@@ -1,11 +1,9 @@
-// Patient routes
 import express, { Router, Request, Response, NextFunction } from 'express';
 import * as patientModel from '../models/patientModel';
 import { Patient, CreatePatientRequest } from '../types/index';
 
 const router: Router = express.Router();
 
-// Get all patients
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const patients = await patientModel.getPatients();
@@ -15,7 +13,6 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Get patient by ID
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const patient = await patientModel.getPatientById(req.params.id);
@@ -28,7 +25,6 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Create patient
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, age, phone, email } = req.body as CreatePatientRequest;
@@ -44,7 +40,6 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Update patient
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { name, age, phone, email } = req.body as Partial<CreatePatientRequest>;
@@ -60,7 +55,6 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-// Delete patient
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     await patientModel.deletePatient(req.params.id);
@@ -70,7 +64,6 @@ router.delete('/:id', async (req: Request, res: Response, next: NextFunction) =>
   }
 });
 
-// Search patients
 router.get('/search/:name', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const patients = await patientModel.searchPatientsByName(req.params.name);

@@ -1,4 +1,3 @@
-// Report Item model using Supabase
 import supabase from '../config/supabase';
 import { ReportItem, CreateReportItemRequest } from '../types/index';
 

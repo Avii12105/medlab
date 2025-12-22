@@ -1,4 +1,3 @@
-// Patient model using Supabase
 import supabase from '../config/supabase';
 import { Patient, CreatePatientRequest } from '../types/index';
 
